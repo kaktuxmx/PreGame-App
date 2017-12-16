@@ -54,14 +54,8 @@
 // /This function serves to get the user input by using service type and setting it equal to user input down below. 
 // Radius is a changable variable.
 function initMapWithUserInput(serviceType, serviceLocation) {
-	$.ajax({
-		url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + serviceLocation,
-		method: "GET"
-	})
-	.done(function(userMapInput){
-		var locationresult = userMapInput.results[0].geometry.location;
 		map = new google.maps.Map(document.getElementById('map'), {
-			center: locationresult,
+			center: serviceLocation,
 			zoom: 10
 		});
 
@@ -69,14 +63,12 @@ function initMapWithUserInput(serviceType, serviceLocation) {
 		infowindow = new google.maps.InfoWindow();
 		var service = new google.maps.places.PlacesService(map);
 		service.nearbySearch({
-			location: locationresult,
+			location: serviceLocation,
 			radius: 70000,
 			type: [serviceType]
 		}, callback);
 
-		console.log(userMapInput);
-
-	});
+	}
 
         // map = new google.maps.Map(document.getElementById('map'), {
         //   center: [serviceLocation],
@@ -117,7 +109,7 @@ $("#submit").on("click",function(click) {
       city = $("#city").val().trim();
       date = $("#Date").val().trim();
 
-      initMapWithUserInput(event, city);
+      // initMapWithUserInput(event);
 
       // console.log(name);
       database.ref().push({
