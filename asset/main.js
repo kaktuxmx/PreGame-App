@@ -1,16 +1,68 @@
 
  //this block of code needs to happen first so that the page will go to google maps first
  //dont move it before ready function
+ 
 
- var map;
+ //--------------------------------GOOGLE MAPS STUFF GOES HERE------------------------------------------
+      var map;
+      var infowindow;
+
       function initMap() {
+        var phoenix = {lat: 33.4484, lng: -112.0740};
+
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 33.4484, lng: -112.0740},
+          center: phoenix,
           zoom: 10
+        });
+
+        infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: phoenix,
+          radius: 70000,
+          type: ['night_club']
+        }, callback);
+      }
+
+      function callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            createMarker(results[i]);
+          }
+        }
+      }
+
+      function createMarker(place) {
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(place.name);
+          infowindow.open(map, this);
         });
       }
 
+     function initMapWithUserInput(serviceType) {
+        var phoenix = {lat: 33.4484, lng: -112.0740};
 
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: phoenix,
+          zoom: 10
+        });
+
+        infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: phoenix,
+          radius: 70000,
+          type: [serviceType]
+        }, callback);
+      }
+
+//--------------------------------GOOGLE MAPS STUFF GOES HERE------------------------------------------
 $(document).ready(function() {
   var config = {
     apiKey: "AIzaSyD6MGRFxYyOvjvNue4_qEr-L2BPnIsHWaI",
@@ -34,6 +86,9 @@ $(document).ready(function() {
       event = $("#eventtext").val().trim();
       city = $("#City").val().trim();
       date = $("#Date").val().trim();
+
+      initMapWithUserInput(event
+      	)
       // console.log(name);
       database.ref().push({
         event: event,
@@ -59,6 +114,7 @@ $(document).ready(function() {
         );
 
     });
+
 
 
 	$("button").on("click", function() {
@@ -88,5 +144,13 @@ $(document).ready(function() {
 	          var results = response.data;
 	 		});
 	 	});
+// setTimeout(function(){
+// 	initMapWithUserInput()
+// },5000)
+
+
+
 });
+
+
 
