@@ -138,34 +138,82 @@ database.ref().on("child_added", function(childSnapshot) {
   });
 
 
-
+//--------------------------------TICKETMASTER API SECTION------------------------------------------
 $("button").on("click", function() {
-	      // Grabbing and storing the data-animal property value from the button
+	      
 
 	      var search = $("#eventtext");
 	      var location = $("#pac-input");
 	      var when = $("#Date");
 
 
-	      // Constructing a queryURL using the animal name
-	      var queryURL = "http://api.eventful.com/json/events/search?=" +
-	      search + "&location=" + location + "&date=" + when + "&app_key=3vZmP9bm5J8X7ffg";
+	      //This section is the ticktmaster api url 
+	      var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + event + "&city=" + location + "&dates=" + when + "&apikey=cPtQ0EDTtDP6C6L6NpXOzIopjAPr4ANG";
+      
+           
+      $.ajax({
+          url: queryURL,
+          method: "GET"
+            })
+
+   .done(function(response) {
+        console.log(response)
+          
+
+          var results = response._embedded.events;
+             
+          //this section runs a for loop to pull the information we want from the api
+          for (var i = 0; i < results.length; i++) {
+    
+
+                var name = results[i].name;
+                
+                database.ref().push(name);
+
+                var date = results[i].dates.start.localDate;
+                
+                database.ref().push(date);
 
 
-	      // Performing an AJAX request with the queryURL
-	      $.ajax({
-	      	url: queryURL,
-	      	method: "GET"
-	      })
-	        // After data comes back from the request
-	        .done(function(response) {
-	        	console.log(queryURL);
+                var venue = results[i]._embedded.venues[0].name;
+                
+                database.ref().push(venue);
 
-	        	console.log(response);
-	          // storing the data from the AJAX request in the results variable
-	          var results = response.data;
-	      });
-	    });
+                var address = results[i]._embedded.venues[0].address.line1; 
+                
+                database.ref().push(address);
+
+                var city = results[i]._embedded.venues[0].city.name;
+                
+                database.ref().push(city);
+
+                var state = results[i]._embedded.venues[0].state.stateCode;
+                
+                database.ref().push(state);
+
+                var zipCode = results[i]._embedded.venues[0].postalCode;
+                
+                database.ref().push(zipCode);
+
+                var lat = results[i]._embedded.venues[0].location.latitude;
+                
+                database.ref().push(lat);
+
+                var long = results[i]._embedded.venues[0].location.longitude;
+                
+                database.ref().push(long);
+       
+ 
+          }
+    });
+
+
+
+
+
+
+
+  });
 // setTimeout(function(){
 // 	initMapWithUserInput()
 // },5000)
