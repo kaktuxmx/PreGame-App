@@ -1,6 +1,7 @@
 <html lang="en">
     <head>
         <title></title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="UTF-8">
 
         <link rel="stylesheet" href="asset/style/style.css">
@@ -37,12 +38,24 @@
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control input-lg" id="eventtext" placeholder="Event">
+                                                         <label for="sel1">Select list:</label>
+                                                              <select class="form-control" id="eventtext">
+                                                                <option>amusement_park</option>
+                                                                <option>bowling_alley</option>
+                                                                <option>night_club</option>
+                                                                <option>casino</option>
+                                                                <option>shopping_mall</option>
+                                                                <option>museum</option>
+                                                                <option>movie_theater</option>
+                                                                <option>jewelry_store</option>
+                                                              </select>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control input-lg" id="City" placeholder="City">
+                                                        <input type="text" class="form-control input-lg" id="city" placeholder="City">
+                                                <!--         I had to change the id to pac input to get google maps to cooperate -->
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
@@ -67,7 +80,9 @@
 
                     </header><!-- header -->
     
-    <div id="map"></div>
+    <div class="container-fluid">
+    <div id="map" class="col-md-12 myDiv row"></div>
+</div>
         <div class="panel-heading">
       <h4>Search History</h4>
     </div>
@@ -93,7 +108,8 @@
 <!--     THESE SCRIPTS HAVE TO LOAD IN THIS ORDER, TRY NOT TO CHANGE THEM! -->
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
                 <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi8eXbNPCZ2VBwkLQlMbY0_GNTKeHA20Q&callback=initMap" async defer> </script>
+                <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi8eXbNPCZ2VBwkLQlMbY0_GNTKeHA20Q&callback=initMap" async defer> </script> -->
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi8eXbNPCZ2VBwkLQlMbY0_GNTKeHA20Q&libraries=places"></script>
                 <script type="text/javascript" src="asset/main.js"></script>
   </body>
               
