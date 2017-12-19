@@ -214,7 +214,7 @@ $(document).ready(function() {
                 // var when = $("#date").val().trim();
                 var pregame = $("#eventtext").val().trim();
 
-                initMapWithUserInput(serviceType)
+                initMapWithUserInput()
 
 
                 Ticketmastersearchevent(search, location, pregame);
