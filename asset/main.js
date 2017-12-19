@@ -31,6 +31,7 @@ function initMap() {
 }
 
 function callback(results, status) {
+    console.log('I am a callback and I am called');
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
             createMarker(results[i]);
@@ -39,6 +40,7 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
+    console.log('Merpy merp',createMarker)
     var placeLoc = place.geometry.location;
     var marker = new google.maps.Marker({
         map: map,
@@ -71,191 +73,201 @@ function createMarker(place) {
 
 //--------------------------------GOOGLE MAPS STUFF GOES HERE------------------------------------------
 $(document).ready(function() {
-            var config = {
-                apiKey: "AIzaSyAPGxBQiwM2ZU2q6pt0w4CLxZUg7oSEFhA",
-                authDomain: "test-team-project.firebaseapp.com",
-                databaseURL: "https://test-team-project.firebaseio.com",
-                projectId: "test-team-project",
-                storageBucket: "",
-                messagingSenderId: "587543488777"
-            };
-            firebase.initializeApp(config);
-            //simple initalization
-            var database = firebase.database();
-            // var search = "";
-            // var location = "";
-            // var when = "";
+    var config = {
+        apiKey: "AIzaSyAPGxBQiwM2ZU2q6pt0w4CLxZUg7oSEFhA",
+        authDomain: "test-team-project.firebaseapp.com",
+        databaseURL: "https://test-team-project.firebaseio.com",
+        projectId: "test-team-project",
+        storageBucket: "",
+        messagingSenderId: "587543488777"
+    };
+    firebase.initializeApp(config);
+    //simple initalization
+    var database = firebase.database();
+    var search = "";
+    // var location = "";
+    // var when = "";
 
-            // var latlong = [];
-            // navigator.geolocation.getCurrentPosition(function(position) {
-            //    var lat = position.coords.latitude;
-            //    var lon = position.coords.longitude;
-            //    array.push(lat, lon); 
-            //    locationCode()  
-            // });
+    // var latlong = [];
+    // navigator.geolocation.getCurrentPosition(function(position) {
+    //    var lat = position.coords.latitude;
+    //    var lon = position.coords.longitude;
+    //    array.push(lat, lon); 
+    //    locationCode()  
+    // });
 
-            // function locationCode() {
-            //    alert(array); 
-
-
-            //--------------------------------TICKETMASTER API SECTION------------------------------------------
-
-            //This variable gets api information from the ticketmaster database.
-            function Ticketmastersearchevent(search, location, when, pregame) {
-                // body...    
-                var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + search + "&city=" + location + "&dates=" + when + "&apikey=cPtQ0EDTtDP6C6L6NpXOzIopjAPr4ANG";
-                console.log(queryURL)
-                $.ajax({
-                        url: queryURL,
-                        method: "GET"
-                    })
-
-                    .done(function(response) {
+    // function locationCode() {
+    //    alert(array); 
 
 
+    //--------------------------------TICKETMASTER API SECTION------------------------------------------
+
+    //This variable gets api information from the ticketmaster database.
+    function Ticketmastersearchevent(search, location, pregame) {
+        // body...    
+        var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + search + "&city=" + location + "&apikey=cPtQ0EDTtDP6C6L6NpXOzIopjAPr4ANG";
+        console.log(queryURL)
+        $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+
+            .done(function(response) {
 
 
 
-                        console.log(response)
-
-                        //This is the beginning of the Ticketmaster API section
-                        //this section pulls the specific information we are seeking from ticketmaster and pushes that information to firebase.
-                        var results = response._embedded.events;
-
-                        var lat = results[0]._embedded.venues[0].location.latitude;
-                        console.log(lat);
-                        // database.ref().push(lat);
-
-                        var long = results[0]._embedded.venues[0].location.longitude;
-                        console.log(long);
-                        // database.ref().push(long);
-
-                        var location2 = {
-                            lat: parseFloat(lat),
-                            lng: parseFloat(long)
-                        }
-
-                        
 
 
+                console.log(response)
 
-                        initMapWithUserInput(pregame, location2);
+                //This is the beginning of the Ticketmaster API section
+                //this section pulls the specific information we are seeking from ticketmaster and pushes that information to firebase.
+                var results = response._embedded.events;
 
-                        // console.log(initMapWithUserInput)
+                var lat = results[0]._embedded.venues[0].location.latitude;
+                console.log(lat);
+                // database.ref().push(lat);
 
+                var long = results[0]._embedded.venues[0].location.longitude;
+                console.log(long);
+                // database.ref().push(long);
 
-                        // for (var i = 0; i < results.length; i++) {
-
-
-                        // var name = results[i].name;
-                        // console.log(name);
-                        // database.ref().push(name);
-
-                        // var date = results[i].dates.start.localDate;
-                        // console.log(date);
-                        // database.ref().push(date);
-
-
-                        // var venue = results[i]._embedded.venues[0].name;
-                        // console.log(venue);
-                        // database.ref().push(venue);
-
-                        // var address = results[i]._embedded.venues[0].address.line1;
-                        // console.log(address);
-                        // database.ref().push(address);
-
-                        // var city = results[i]._embedded.venues[0].city.name;
-                        // console.log(city);
-                        // database.ref().push(city);
-
-                        // var state = results[i]._embedded.venues[0].state.stateCode;
-                        // console.log(state);
-                        // database.ref().push(state);
-
-                        // var zipCode = results[i]._embedded.venues[0].postalCode;
-                        // console.log(zipCode);
-                        // database.ref().push(zipCode);
-
-                        // var lat = results[i]._embedded.venues[0].location.latitude;
-                        // console.log(lat);
-                        // database.ref().push(lat);
-
-                        // var long = results[i]._embedded.venues[0].location.longitude;
-                        // console.log(long);
-                        // database.ref().push(long);
-
-                        // }
-                    });
-            }
-
-            function initMapWithUserInput(serviceType, serviceLocation) {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: serviceLocation,
-                    zoom: 10
-                });
+                var location2 = {
+                    lat: parseFloat(lat),
+                    lng: parseFloat(long)
+                }
 
 
-                infowindow = new google.maps.InfoWindow();
-                var service = new google.maps.places.PlacesService(map);
-                service.nearbySearch({
-                    location: serviceLocation,
-                    radius: 70000,
-                    type: [serviceType]
-                }, callback);
-
-            }
-
-            $("#submit").on("click", function(click) {
-                click.preventDefault();
-                // console.log("submit")
-
-                var search = $("#search").val().trim();
-                var location = $("#city").val().trim();
-                // var when = $("#date").val().trim();
-                var pregame = $("#eventtext").val().trim();
-
-                initMapWithUserInput()
 
 
-                Ticketmastersearchevent(search, location, pregame);
+
+                initMapWithUserInput(pregame, location2);
+
+                // console.log(initMapWithUserInput)
+
+
+                // for (var i = 0; i < results.length; i++) {
+
+
+                // var name = results[i].name;
                 // console.log(name);
-                //  var newSearch = {
-                //      search: search,
-                //      location: location,
-                //      when: when   
-                // };
+                // database.ref().push(name);
+
+                // var date = results[i].dates.start.localDate;
+                // console.log(date);
+                // database.ref().push(date);
 
 
-                // database.ref().push(newSearch);
+                // var venue = results[i]._embedded.venues[0].name;
+                // console.log(venue);
+                // database.ref().push(venue);
 
+                // var address = results[i]._embedded.venues[0].address.line1;
+                // console.log(address);
+                // database.ref().push(address);
 
-                $("#search").val("");
-                $("#city").val("");
-                $("#date").val("");
+                // var city = results[i]._embedded.venues[0].city.name;
+                // console.log(city);
+                // database.ref().push(city);
 
+                // var state = results[i]._embedded.venues[0].state.stateCode;
+                // console.log(state);
+                // database.ref().push(state);
 
+                // var zipCode = results[i]._embedded.venues[0].postalCode;
+                // console.log(zipCode);
+                // database.ref().push(zipCode);
 
+                // var lat = results[i]._embedded.venues[0].location.latitude;
+                // console.log(lat);
+                // database.ref().push(lat);
 
+                // var long = results[i]._embedded.venues[0].location.longitude;
+                // console.log(long);
+                // database.ref().push(long);
+
+                // }
             });
+    }
+
+    function initMapWithUserInput(serviceType, serviceLocation) {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: serviceLocation,
+            zoom: 11
         });
-            // 	database.ref().on("child_added", function(childSnapshot, prevChildKey) {
-
-            //  // console.log(childSnapshot.val());
-
-            //  var name = childSnapshot.val().name;
-            //  var address = childSnapshot.val().address;
-            //  var city = childSnapshot.val().city;
-            //  var state = childSnapshot.val().state;
-            //  var date = childSnapshot.val().date;
-            //  var lat = childSnapshot.val().location.latitude
-            //  var long = childSnapshot.val().location.longitude
 
 
+        infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+        // console.log("service", service)
+        console.log("servicetype", serviceType)
+        console.log("servicelocation", serviceLocation)
+        console.log("search", search)
+        console.log('callback', callback);
+        service.nearbySearch({
+            location: serviceLocation,
+            radius: 7000,
+            type: [serviceType]
+        }, callback);
+                 console.log("service", service)
+
+
+    }
+  
+
+    $("#submit").on("click", function(click) {
+        click.preventDefault();
+        // console.log("submit")
+
+
+        var pregame = $("#eventtext").val().trim();
+        var search = $("#search").val().trim();
+        var location = $("#city").val().trim();
+        // var when = $("#date").val().trim();
+        
+
+        // initMapWithUserInput(pregame)
+
+
+        Ticketmastersearchevent(search, location, pregame);
+        // console.log(name);
+        //  var newSearch = {
+        //      search: search,
+        //      location: location,
+        //      when: when   
+        // };
+
+
+        // database.ref().push(newSearch);
+
+
+        // $("#search").val("");
+        // $("#city").val("");
+        // $("#date").val("");
 
 
 
-            // $("#search-table > tbody").append("<tr><td>" + name + "</td><td>" + address + "</td><td>" +
-            //  city + "</td><td>" + state + "</td><td>" + date + "</td></tr>");
 
-            //    });  
-            //  })
+    });
+});
+//  database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+
+//  // console.log(childSnapshot.val());
+
+//  var name = childSnapshot.val().name;
+//  var address = childSnapshot.val().address;
+//  var city = childSnapshot.val().city;
+//  var state = childSnapshot.val().state;
+//  var date = childSnapshot.val().date;
+//  var lat = childSnapshot.val().location.latitude
+//  var long = childSnapshot.val().location.longitude
+
+
+
+
+
+// $("#search-table > tbody").append("<tr><td>" + name + "</td><td>" + address + "</td><td>" +
+//  city + "</td><td>" + state + "</td><td>" + date + "</td></tr>");
+
+//    });  
+//  })
