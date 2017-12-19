@@ -8,6 +8,7 @@
         height: 100%;
         margin: 0;
         padding: 0;
+        background-color: #F5F5F5;
       }
       #description {
         font-family: Roboto;
@@ -78,4 +79,12 @@
       }
       #target {
         width: 345px;
+      }
+
+      /*CSS for slides*/
+      .slides {
+        margin: auto;
+        max-width: 1280px;
+        height: 110%;
+        width: 100%;
       }
