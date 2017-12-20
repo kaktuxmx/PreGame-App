@@ -10,7 +10,7 @@
         padding: 0;
       }
       #description {
-        font-family: Roboto;
+        font-family: 'Roboto', sans-serif;;
         font-size: 15px;
         font-weight: 300;
       }
@@ -35,7 +35,7 @@
         outline: none;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         background-color: #fff;
-        font-family: Roboto;
+        font-family: 'Roboto', sans-serif;;
       }
 
       #pac-container {
@@ -49,14 +49,14 @@
       }
 
       .pac-controls label {
-        font-family: Roboto;
+        font-family: 'Roboto', sans-serif;
         font-size: 13px;
         font-weight: 300;
       }
 
       #pac-input {
         background-color: #fff;
-        font-family: Roboto;
+        font-family: 'Roboto', sans-serif;
         font-size: 15px;
         font-weight: 300;
         margin-left: 12px;
@@ -82,14 +82,16 @@
 
       .section-heading {
         font-family: 'Roboto', sans-serif;
-
       }
 
       .font-bold {
         font-family: 'Roboto', sans-serif;
-
       }
 
-      h4 {
+      h4, p, a, label {
+        font-family: 'Roboto', sans-serif;
+      }
+
+      .pull-stop {
         font-family: 'Roboto', sans-serif;
       }
