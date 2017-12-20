@@ -79,3 +79,17 @@
       #target {
         width: 345px;
       }
+
+      .section-heading {
+        font-family: 'Roboto', sans-serif;
+
+      }
+
+      .font-bold {
+        font-family: 'Roboto', sans-serif;
+
+      }
+
+      h4 {
+        font-family: 'Roboto', sans-serif;
+      }
