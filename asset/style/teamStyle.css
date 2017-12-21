@@ -1,0 +1,7 @@
+body {
+        background-image: url(../images/phoenix.png);
+        background-image: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-font-color: white;
+      }

@@ -88,3 +88,11 @@
         height: 110%;
         width: 100%;
       }
+
+      body {
+        background-image: url(../images/phoenix.png);
+        background-image: no-repeat;
+        text-align;
+        background-size: cover;
+        background-position: center;
+      }
