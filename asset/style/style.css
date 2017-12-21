@@ -8,6 +8,7 @@
         height: 100%;
         margin: 0;
         padding: 0;
+         background-color: #F5F5F5
       }
       #description {
         font-family: 'Roboto', sans-serif;;
@@ -78,6 +79,20 @@
       }
       #target {
         width: 345px;
+      }
+            .slides {
+        margin: auto;
+        max-width: 1280px;
+        height: 110%;
+        width: 100%;
+      }
+
+      body {
+        background-image: url(../images/phoenix.png);
+        background-image: no-repeat;
+        text-align;
+        background-size: cover;
+        background-position: center;
       }
 
       .section-heading {

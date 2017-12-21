@@ -31,7 +31,6 @@ function initMap() {
 }
 
 function callback(results, status) {
-    console.log('I am a callback and I am called');
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
             createMarker(results[i]);
@@ -40,7 +39,7 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
-    console.log('Merpy merp',createMarker)
+
     var placeLoc = place.geometry.location;
     var marker = new google.maps.Marker({
         map: map,
@@ -63,31 +62,17 @@ function createMarker(place) {
 
 // ------------------------------------- USER INPUT VALIDATION ENDS HERE ---------------------------
 $(document).ready(function() {
+    $("eventtext").val("")
     var config = {
-        apiKey: "AIzaSyAPGxBQiwM2ZU2q6pt0w4CLxZUg7oSEFhA",
-        authDomain: "test-team-project.firebaseapp.com",
-        databaseURL: "https://test-team-project.firebaseio.com",
-        projectId: "test-team-project",
+        apiKey: "AIzaSyC4xOsfX76n77JrzIEeg140MLnegIqDylg",
+        authDomain: "searchhistory-7a413.firebaseapp.com",
+        databaseURL: "https://searchhistory-7a413.firebaseio.com",
+        projectId: "searchhistory-7a413",
         storageBucket: "",
-        messagingSenderId: "587543488777"
+        messagingSenderId: "175527416461"
     };
     firebase.initializeApp(config);
-    //simple initalization
-    var database = firebase.database();
-    var search = "";
-    // var location = "";
-    // var when = "";
 
-    // var latlong = [];
-    // navigator.geolocation.getCurrentPosition(function(position) {
-    //    var lat = position.coords.latitude;
-    //    var lon = position.coords.longitude;
-    //    array.push(lat, lon); 
-    //    locationCode()  
-    // });
-
-    // function locationCode() {
-    //    alert(array); 
 
 
     //--------------------------------TICKETMASTER API SECTION------------------------------------------
@@ -115,12 +100,10 @@ $(document).ready(function() {
                 var results = response._embedded.events;
 
                 var lat = results[0]._embedded.venues[0].location.latitude;
-                console.log(lat);
-                // database.ref().push(lat);
+
 
                 var long = results[0]._embedded.venues[0].location.longitude;
-                console.log(long);
-                // database.ref().push(long);
+
 
                 var location2 = {
                     lat: parseFloat(lat),
@@ -133,50 +116,7 @@ $(document).ready(function() {
 
                 initMapWithUserInput(pregame, location2);
 
-                // console.log(initMapWithUserInput)
 
-
-                // for (var i = 0; i < results.length; i++) {
-
-
-                // var name = results[i].name;
-                // console.log(name);
-                // database.ref().push(name);
-
-                // var date = results[i].dates.start.localDate;
-                // console.log(date);
-                // database.ref().push(date);
-
-
-                // var venue = results[i]._embedded.venues[0].name;
-                // console.log(venue);
-                // database.ref().push(venue);
-
-                // var address = results[i]._embedded.venues[0].address.line1;
-                // console.log(address);
-                // database.ref().push(address);
-
-                // var city = results[i]._embedded.venues[0].city.name;
-                // console.log(city);
-                // database.ref().push(city);
-
-                // var state = results[i]._embedded.venues[0].state.stateCode;
-                // console.log(state);
-                // database.ref().push(state);
-
-                // var zipCode = results[i]._embedded.venues[0].postalCode;
-                // console.log(zipCode);
-                // database.ref().push(zipCode);
-
-                // var lat = results[i]._embedded.venues[0].location.latitude;
-                // console.log(lat);
-                // database.ref().push(lat);
-
-                // var long = results[i]._embedded.venues[0].location.longitude;
-                // console.log(long);
-                // database.ref().push(long);
-
-                // }
             });
     }
 
@@ -190,99 +130,122 @@ $(document).ready(function() {
         infowindow = new google.maps.InfoWindow();
         var service = new google.maps.places.PlacesService(map);
         // console.log("service", service)
-        console.log("servicetype", serviceType)
-        console.log("servicelocation", serviceLocation)
-        console.log("search", search)
-        console.log('callback', callback);
+
         service.nearbySearch({
             location: serviceLocation,
             radius: 7000,
             type: [serviceType]
         }, callback);
-                 console.log("service", service)
+        console.log("service", service)
 
 
     }
-  
+
 
     $("#submit").on("click", function(click) {
         click.preventDefault();
-        // console.log("submit")
+        var isValid = true;
+        $('#eventtext,#search,#city,#date').each(function() {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+            } else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+
+            if (!isValid)
+                return;
+        });
 
 
+
+        var database = firebase.database();
         var pregame = $("#eventtext").val().trim();
         var search = $("#search").val().trim();
         var location = $("#city").val().trim();
+        var date = $("#date").val().trim();
         var isValid = true
+        //this is for firebase no touchie - Landon
+        var newSearch = {
+            pregame: pregame,
+            search: search,
+            location: location,
+            date: date,
+        }
 
+
+        database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+
+            var pregame = childSnapshot.val().pregame;
+            var location = childSnapshot.val().location;
+            var search = childSnapshot.val().search;
+            var date = childSnapshot.val().date;
+
+            $("#search-table > tbody").append("<tr><td>" + search + "</td><td>" +
+                location + "</td><td>" + pregame + "</td><td>" + date + "</td></tr>");
+
+        })
+
+
+        database.ref().push({
+            pregame: pregame,
+            search: search,
+            location: location,
+            date: date,
+
+        });
         // ------------------------------------- USER INPUT VALIDATION GOES HERE ---------------------------
 
 
-          $('#eventtext,#search,#city,#date').each(function() {
-                if ($.trim($(this).val()) == '') {
-                    isValid = false;
-                    $(this).css({
-                        "border": "1px solid red",
-                        "background": "#FFCECE"
-                    });
-                }
-                else {
-                    $(this).css({
-                        "border": "",
-                        "background": ""
-                    });
-                }
-            
-            if (isValid == false)
-                click.preventDefault();
+        $('#eventtext,#search,#city,#date').each(function() {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+            } else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+
+            if (!isValid)
+                return;
         });
 
-        
 
-// ------------------------------------- USER INPUT VALIDATION ENDS HERE ---------------------------
+
+        // ------------------------------------- USER INPUT VALIDATION ENDS HERE ---------------------------
 
 
 
 
         Ticketmastersearchevent(search, location, pregame);
-        // console.log(name);
-        //  var newSearch = {
-        //      search: search,
-        //      location: location,
-        //      when: when   
-        // };
 
-
-        // database.ref().push(newSearch);
-
-
-        // $("#search").val("");
-        // $("#city").val("");
-        // $("#date").val("");
+        //clears that shit out
+        $("#search").val("");
+        $("#city").val("");
+        $("#date").val("");
+        $("eventtext").val("")
 
 
 
 
     });
 });
-//  database.ref().on("child_added", function(childSnapshot, prevChildKey) {
-
-//  // console.log(childSnapshot.val());
-
-//  var name = childSnapshot.val().name;
-//  var address = childSnapshot.val().address;
-//  var city = childSnapshot.val().city;
-//  var state = childSnapshot.val().state;
-//  var date = childSnapshot.val().date;
-//  var lat = childSnapshot.val().location.latitude
-//  var long = childSnapshot.val().location.longitude
 
 
 
 
 
-// $("#search-table > tbody").append("<tr><td>" + name + "</td><td>" + address + "</td><td>" +
-//  city + "</td><td>" + state + "</td><td>" + date + "</td></tr>");
 
 //    });  
 //  })
