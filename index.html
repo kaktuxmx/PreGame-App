@@ -3,18 +3,16 @@
 
 <head>
     <title></title>
+    <link rel="stylesheet" href="asset/style/reset.css">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="asset/style/style.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-            crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="asset/style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 
 
-<body>
-
-
-    <body>
+    <body class="card-panel teal lighten-5">
         <header class="header7" id="header7">
             <nav role="navigation" class="navbar navbar-default">
                 <div class="container">
@@ -34,6 +32,7 @@
                             <form class="login-reg">
                                 <div class="row">
                                     <div class="col-sm-12">
+                                        <h2 class="pull-stop">Welcome to PreGame APP!</h2>
                                         <h3 class="pull-stop">Enter your search!</h3>
                                         <p>We will provide with the events near you and were you can PreGame!!!</p>
 
@@ -53,7 +52,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <input type="text" class="form-control input-lg" id="date" placeholder="Date" required>
-                                                    <!--inveSTIGA COMO se pone el input para clase form-group -->
+
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
@@ -79,9 +78,9 @@
                                 </div>
                             </form>
                         </div>
-                           <div class="container-fluid">
-    <div id="map" class="col-md-12 myDiv row"></div>
-</div>
+                            <div class="container">
+                              <div id="map" class="col-md-7 myDiv row" width="765" height="500"></div>
+                            </div>
                         <!-- row -->
                     </div>
                     <!-- intro -->
@@ -101,7 +100,7 @@
                     <th>Address</th>
                     <th>City</th>
                     <th>State</th>
-                    <th>Date</th>           
+                    <th>Date</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -120,4 +119,3 @@
     </body>
 
 </html>
-
