@@ -179,25 +179,13 @@ $(document).ready(function() {
             date: date,
         }
 
-                database.ref().push({
-            pregame: pregame,
-            search: search,
-            location: location,
-            date: date,
-
-        });
-
 
         database.ref().on("child_added", function(childSnapshot, prevChildKey) {
-
-
 
             var pregame = childSnapshot.val().pregame;
             var location = childSnapshot.val().location;
             var search = childSnapshot.val().search;
             var date = childSnapshot.val().date;
-
-
 
             $("#search-table > tbody").append("<tr><td>" + search + "</td><td>" +
                 location + "</td><td>" + pregame + "</td><td>" + date + "</td></tr>");
@@ -205,6 +193,13 @@ $(document).ready(function() {
         })
 
 
+        database.ref().push({
+            pregame: pregame,
+            search: search,
+            location: location,
+            date: date,
+
+        });
         // ------------------------------------- USER INPUT VALIDATION GOES HERE ---------------------------
 
 

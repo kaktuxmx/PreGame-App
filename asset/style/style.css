@@ -8,9 +8,10 @@
         height: 100%;
         margin: 0;
         padding: 0;
+         background-color: #F5F5F5
       }
       #description {
-        font-family: Roboto;
+        font-family: 'Roboto', sans-serif;;
         font-size: 15px;
         font-weight: 300;
       }
@@ -35,7 +36,7 @@
         outline: none;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         background-color: #fff;
-        font-family: Roboto;
+        font-family: 'Roboto', sans-serif;;
       }
 
       #pac-container {
@@ -49,14 +50,14 @@
       }
 
       .pac-controls label {
-        font-family: Roboto;
+        font-family: 'Roboto', sans-serif;
         font-size: 13px;
         font-weight: 300;
       }
 
       #pac-input {
         background-color: #fff;
-        font-family: Roboto;
+        font-family: 'Roboto', sans-serif;
         font-size: 15px;
         font-weight: 300;
         margin-left: 12px;
@@ -78,4 +79,34 @@
       }
       #target {
         width: 345px;
+      }
+            .slides {
+        margin: auto;
+        max-width: 1280px;
+        height: 110%;
+        width: 100%;
+      }
+
+      body {
+        background-image: url(../images/phoenix.png);
+        background-image: no-repeat;
+        text-align;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .section-heading {
+        font-family: 'Roboto', sans-serif;
+      }
+
+      .font-bold {
+        font-family: 'Roboto', sans-serif;
+      }
+
+      h4, p, a, label {
+        font-family: 'Roboto', sans-serif;
+      }
+
+      .pull-stop {
+        font-family: 'Roboto', sans-serif;
       }
