@@ -35,22 +35,23 @@
                                         <h2 class="pull-stop">Welcome to PreGame APP!</h2>
                                         <h3 class="pull-stop">Enter your search!</h3>
                                         <p>We will provide with the events near you and were you can PreGame!!!</p>
+
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control input-lg" id="search" placeholder="Event">
+                                                    <input type="text" class="form-control input-lg" id="search" placeholder="Event" required>
                                                     <!--         I had to change the id to pac input to get google maps to cooperate -->
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control input-lg" id="city" placeholder="City">
+                                                    <input type="text" class="form-control input-lg" id="city" placeholder="City" required>
                                                     <!--         I had to change the id to pac input to get google maps to cooperate -->
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control input-lg" id="date" placeholder="Date">
+                                                    <input type="text" class="form-control input-lg" id="date" placeholder="Date" required>
 
                                                 </div>
                                                 <div class="col-sm-12">
@@ -70,7 +71,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" id="submit" class="btn btn-info btn-block button">Submit</button>
+                                        <button type="submit"  id="submit" class="btn btn-info btn-block button">Submit</button>
+                                        <p id="demo"></p>
+
                                     </div>
                                 </div>
                             </form>
@@ -84,11 +87,8 @@
                 </div>
                 <!-- container -->
         </header>
-        <!-- header -->
-        <!-- <div class="row">
-        <div class="col-lg-12">
-        <!-- Current Employees-->
-        <!--           <div class="panel panel-primary">
+
+                  <div class="panel panel-primary">
             <div class="panel-heading">
               <h3 class="panel-title"><strong>Search Results</strong></h3>
             </div>
@@ -107,7 +107,7 @@
                 </tbody>
               </table>
             </div>
-          </div> -->
+          </div>
         <!--     THESE SCRIPTS HAVE TO LOAD IN THIS ORDER, TRY NOT TO CHANGE THEM! -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>

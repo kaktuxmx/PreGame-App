@@ -52,26 +52,16 @@ function createMarker(place) {
         infowindow.open(map, this);
     });
 }
-// /This function serves to get the user input by using service type and setting it equal to user input down below. 
-// Radius is a changable variable.
-// initMap()
 
 
-//         map = new google.maps.Map(document.getElementById('map'), {
-//           center: [serviceLocation],
-//           zoom: 10
-//         });
 
-//         infowindow = new google.maps.InfoWindow();
-//         var service = new google.maps.places.PlacesService(map);
-//         service.nearbySearch({
-//           location: [serviceLocation],
-//           radius: 70000,
-//           type: [serviceType]
-//         }, callback);
+//--------------------------------GOOGLE MAPS STUFF ENDS HERE------------------------------------------
 
 
-//--------------------------------GOOGLE MAPS STUFF GOES HERE------------------------------------------
+// ------------------------------------- USER INPUT VALIDATION GOES HERE ---------------------------
+
+
+// ------------------------------------- USER INPUT VALIDATION ENDS HERE ---------------------------
 $(document).ready(function() {
     var config = {
         apiKey: "AIzaSyAPGxBQiwM2ZU2q6pt0w4CLxZUg7oSEFhA",
@@ -223,10 +213,35 @@ $(document).ready(function() {
         var pregame = $("#eventtext").val().trim();
         var search = $("#search").val().trim();
         var location = $("#city").val().trim();
-        // var when = $("#date").val().trim();
+        var isValid = true
+
+        // ------------------------------------- USER INPUT VALIDATION GOES HERE ---------------------------
+
+
+          $('#eventtext,#search,#city,#date').each(function() {
+                if ($.trim($(this).val()) == '') {
+                    isValid = false;
+                    $(this).css({
+                        "border": "1px solid red",
+                        "background": "#FFCECE"
+                    });
+                }
+                else {
+                    $(this).css({
+                        "border": "",
+                        "background": ""
+                    });
+                }
+            
+            if (isValid == false)
+                click.preventDefault();
+        });
+
         
 
-        // initMapWithUserInput(pregame)
+// ------------------------------------- USER INPUT VALIDATION ENDS HERE ---------------------------
+
+
 
 
         Ticketmastersearchevent(search, location, pregame);
